@@ -70,12 +70,12 @@ app.post('/trigger', function(request, response) {
   }
   if(typeof key !== "undefined" && typeof modifier !== "undefined" && typeof duration !== "undefined") {
     response.writeHead(200, {"Content-Type": "application/json"})
-    response.end('OK')
+    response.end('{"success": true}')
     triggerKeyEvent(key,modifier,duration,uuid)
   } else {
     console.log(uuid+" | Returning 400 to client")
     response.writeHead(400, {"Content-Type": "application/json"})
-    response.end('OK')
+    response.end('{"success: false", "error":{ "message": "Required payload missing"}}')
   }
 
 })
