@@ -82,19 +82,48 @@ app.post('/trigger', function(request, response) {
 })
 
 app.post('/random-mouse-move', function(request, response) {
+
+
+  /* Expected payload
+
+  {
+      "movements": 2,
+      "delay": 2000
+  }
+
+  */
   
   /* Keep track of request with uuid */
   var uuid = uuidv4();
-  var numberOfMouseMovements = 10;
-  var maxDelayBetweenMoveMents = 2000;
-  var min = 0;
-  for (i = 0; i < numberOfMouseMovements; i++) {
-    setTimeout(function() {
-      robot.moveMouse(Math.random() * (height - min) + min, Math.random() * (width - min) + min);
-    }, Math.random() * (maxDelayBetweenMoveMents - 500) + 500);
+
+  if(request.body.hasOwnProperty("movements")) {
+    var numberOfMouseMovements = request.body.movements;
+  } else {
+    console.log(uuid+" | No movements sent with payload, please check incoming webhook");
   }
-  response.writeHead(200, {"Content-Type": "application/json"})
-  response.end('{"success": true}')
+
+  if(request.body.hasOwnProperty("delay")) {
+    var maxDelayBetweenMoveMents = request.body.delay;
+  } else {
+    console.log(uuid+" | No delay sent with payload, please check incoming webhook");
+  }
+
+  var min = 0;
+
+  if(typeof numberOfMouseMovements !== "undefined" && typeof maxDelayBetweenMoveMents !== "undefined") {
+    for (i = 0; i < numberOfMouseMovements; i++) {
+      setTimeout(function() {
+        robot.moveMouse(Math.random() * (height - min) + min, Math.random() * (width - min) + min);
+      }, Math.random() * (maxDelayBetweenMoveMents - 500) + 500);
+    }
+    response.writeHead(200, {"Content-Type": "application/json"})
+    response.end('{"success": true}')
+  } else {
+    console.log(uuid+" | Returning 400 to client")
+    response.writeHead(400, {"Content-Type": "application/json"})
+    response.end('{"success: false", "error":{ "message": "Required payload missing"}}')
+  }
+
 
 })
 
