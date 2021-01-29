@@ -81,7 +81,7 @@ app.post('/trigger', function(request, response) {
 
 })
 
-app.post('/move-mouse', function(request, response) {
+app.post('/random-mouse-move', function(request, response) {
   
   /* Keep track of request with uuid */
   var uuid = uuidv4();
