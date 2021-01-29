@@ -2,6 +2,7 @@
 
 const robot = require("robotjs");
 const { v4: uuidv4 } = require('uuid');
+const { width, height } = require("screenz");
 const express = require("express");
 const app = express();
 
@@ -77,6 +78,23 @@ app.post('/trigger', function(request, response) {
     response.writeHead(400, {"Content-Type": "application/json"})
     response.end('{"success: false", "error":{ "message": "Required payload missing"}}')
   }
+
+})
+
+app.post('/move-mouse', function(request, response) {
+  
+  /* Keep track of request with uuid */
+  var uuid = uuidv4();
+  var numberOfMouseMovements = 10;
+  var maxDelayBetweenMoveMents = 2000;
+  var min = 0;
+  for (i = 0; i < numberOfMouseMovements; i++) {
+    setTimeout(function() {
+      robot.moveMouse(Math.random() * (height - min) + min, Math.random() * (width - min) + min);
+    }, Math.random() * (maxDelayBetweenMoveMents - 500) + 500);
+  }
+  response.writeHead(200, {"Content-Type": "application/json"})
+  response.end('{"success": true}')
 
 })
 
