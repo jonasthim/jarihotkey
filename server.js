@@ -27,7 +27,7 @@ function triggerKeyEvent(key, modifier, duration, uuid) {
     console.log(uuid+" | Start of toggle: Pressed "+modifier.join(" + ")+" + "+key+" waiting another "+duration+" milliseconds for next keypress")
   setTimeout(function() {
       robot.keyTap(key, modifier)
-      console.log(uuid+" | End of toggle: Pressed "+modifier.join(" + ")+" + "+key+"")
+      console.log(String(uuid+" | End of toggle: Pressed "+modifier.join(" + ")+" + "+key))
   }, duration);
  }
 
