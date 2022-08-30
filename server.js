@@ -52,19 +52,19 @@ app.post('/trigger', function(request, response) {
   var duration = 1000
   /* End remove if Kruiz Control support payload */
 
-  if(request.body.hasOwnProperty("key")) {
+  if(Object.prototype.hasOwnProperty.call(request.body, 'key')) {
     var key = request.body.key;
   } else {
     console.log(uuid+" | No key sent with payload, please check incoming webhook");
   }
 
-  if(request.body.hasOwnProperty("modifier")) {
+  if(Object.prototype.hasOwnProperty.call(request.body, 'modifier')) {
     var modifier = request.body.modifier;
   } else {
     console.log(uuid+" | No modifier sent with payload, please check incoming webhook");
   }
 
-  if(request.body.hasOwnProperty("duration")) {
+  if(Object.prototype.hasOwnProperty.call(request.body, 'duration')) {
     var duration = request.body.duration;
   } else {
     console.log(uuid+" | No duration sent with payload, please check incoming webhook");
@@ -96,13 +96,13 @@ app.post('/random-mouse-move', function(request, response) {
   /* Keep track of request with uuid */
   var uuid = uuidv4();
 
-  if(request.body.hasOwnProperty("movements")) {
+  if(Object.prototype.hasOwnProperty.call(request.body, 'movements')) {
     var numberOfMouseMovements = request.body.movements;
   } else {
     console.log(uuid+" | No movements sent with payload, please check incoming webhook");
   }
 
-  if(request.body.hasOwnProperty("delay")) {
+  if(Object.prototype.hasOwnProperty.call(request.body, 'delay')) {
     var maxDelayBetweenMoveMents = request.body.delay;
   } else {
     console.log(uuid+" | No delay sent with payload, please check incoming webhook");
